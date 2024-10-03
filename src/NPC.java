@@ -5,5 +5,4 @@ public class NPC extends Interactable {
         super(x, y, height, width);
         this.name = name;
     }
-
 }

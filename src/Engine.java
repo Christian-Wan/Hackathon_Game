@@ -7,6 +7,7 @@ public class Engine {
     private PlayPanel playPanel;
     private Input input;
     private Stage stage;
+    private Textbox textbox;
 
     public Engine(Frame frame) {
         this.frame = frame;
@@ -14,7 +15,7 @@ public class Engine {
         input = new Input(this);
         playPanel = new PlayPanel(this);
         stage = new Stage(this);
-
+        textbox = new Textbox("i am the sigma", 100,100,0,0, this);
     }
 
     public Stage getStage() {
@@ -55,5 +56,13 @@ public class Engine {
 
     public void setPlayPanel(PlayPanel playPanel) {
         this.playPanel = playPanel;
+    }
+
+    public Textbox getTextbox() {
+        return textbox;
+    }
+
+    public void setTextbox(Textbox textbox) {
+        this.textbox = textbox;
     }
 }
