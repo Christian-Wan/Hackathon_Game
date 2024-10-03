@@ -17,6 +17,7 @@ public class Frame extends JFrame implements Runnable {
         this.setLocation(320, 220);
         this.setVisible(true);
         this.setResizable(false);
+        frame = 0;
         startThread();
     }
 
@@ -30,12 +31,12 @@ public class Frame extends JFrame implements Runnable {
     public void run() {
         double drawInterval = (double) 1000000000 / 60;
         double nextDrawTime = System.nanoTime() + drawInterval;
-        frame ++;
-        if (frame == 61) {
-            frame = 0;
-        }
-        while (true) {
 
+        while (true) {
+            frame++;
+            if (frame == 61) {
+                frame = 0;
+            }
             engine.getPlayPanel().update();
             engine.getPlayPanel().repaint();
             try {

@@ -45,9 +45,7 @@ public class Stage {
         }
     }
 
-    public ArrayList<Interactable> getInteractables() {
-        return interactables;
-    }
+
 
     private void parseMap() {
         String path = "map_data/" + currentMap;
@@ -74,7 +72,13 @@ public class Stage {
                 interactables.add(new NPC(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3]), split[4]));
             }
         }
+    }
 
+    public ArrayList<Interactable> getInteractables() {
+        return interactables;
+    }
 
+    public String getCurrentMap() {
+        return currentMap;
     }
 }

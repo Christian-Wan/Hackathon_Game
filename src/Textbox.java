@@ -21,22 +21,23 @@ public class Textbox {
         this.text = new ArrayList<String>();
         convertToList(text);
         this.engine = engine;
+        index = 0;
     }
 
     private void convertToList(String text) {
         for (int i = 0; i < text.length(); i ++) {
-            this.text.add(text.substring(i, i++));
+            this.text.add(text.substring(i, i + 1));
         }
     }
     public void draw(Graphics2D g2) {
-        System.out.println(text.toString());
         if (engine.getFrame().getFrame() % 3 == 0 && index != text.size()) {
             index ++;
+            System.out.println("test");
         }
         int x = xCordStart;
         for (int i = 0; i < index; i ++) {
             g2.drawString(text.get(i), x, yCordStart);
-            x ++;
+            x += 10;
         }
     }
 }

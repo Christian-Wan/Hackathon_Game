@@ -55,12 +55,19 @@ public class Player {
                 }
                 else {
                     if (engine.getStage().getInteractables().get(i).getInteractBox().getX() > 60) {
-                        System.out.println("GO NEXT STAGE");
+                        String nextMap = "map" +  (Integer.parseInt(engine.getStage().getCurrentMap().substring(3)) + 1);
+                        engine.setStage(new Stage(engine, nextMap));
+                        xCord = 20;
+
                     }
                     else {
                         System.out.println("GO PREVIOUS");
+                        String nextMap = "map" +  (Integer.parseInt(engine.getStage().getCurrentMap().substring(3)) - 1);
+                        engine.setStage(new Stage(engine, nextMap));
+                        xCord = 1250;
                     }
-//                      engine.setStage(new Stage());
+
+                    hitBox.setLocation(xCord, yCord);
                }
             }
         }
