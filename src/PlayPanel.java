@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PlayPanel extends JPanel {
 
     private Engine engine;
+    private ArrayList<Interactable> interactables;
 
     public PlayPanel(Engine engine) {
         this.engine = engine;
@@ -13,11 +15,13 @@ public class PlayPanel extends JPanel {
 
 
     public void update() {
-
+        engine.getPlayer().updatePlayer();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        engine.getPlayer().draw(g2);
     }
 }

@@ -12,10 +12,10 @@ public class Frame extends JFrame implements Runnable {
         engine.getPlayPanel().requestFocus();
         engine.getPlayPanel().setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 500);
+        this.setSize(1280, 640);
+        this.setLocation(320, 220);
         this.setVisible(true);
         this.setResizable(false);
-
         startThread();
     }
 
@@ -33,7 +33,6 @@ public class Frame extends JFrame implements Runnable {
         while (true) {
             engine.getPlayPanel().update();
             engine.getPlayPanel().repaint();
-            System.out.println(engine.getInput().getInputs());
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime = remainingTime/1000000;
