@@ -21,6 +21,7 @@ public class PlayPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        engine.getStage().draw(g2);
         engine.getPlayer().draw(g2);
     }
 }

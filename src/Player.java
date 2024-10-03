@@ -47,7 +47,21 @@ public class Player {
 
     public void interact() {
         for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
-
+            if (engine.getStage().getInteractables().get(i).getInteractBox().contains(hitBox)) {
+               if (engine.getStage().getInteractables().get(i) instanceof NPC) {
+                   //SHOW TEXT ABOVE PLAYER HEAD THAT STATES THE PLAYER CAN PRESS E TO INTERACT
+                   System.out.println("NPC HERE");
+               }
+               else {
+                   if (engine.getStage().getInteractables().get(i).getInteractBox().getX() > 60) {
+                       System.out.println("GO NEXT STAGE");
+                   }
+                   else {
+                       System.out.println("GO PREVIOUS");
+                   }
+//                   engine.setStage(new Stage());
+               }
+            }
         }
     }
 
