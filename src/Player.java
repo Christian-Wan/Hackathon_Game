@@ -46,7 +46,9 @@ public class Player {
     }
 
     public void interact() {
+        for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
 
+        }
     }
 
     public void draw(Graphics2D g) {

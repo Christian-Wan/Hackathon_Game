@@ -6,16 +6,24 @@ public class Engine {
     private Frame frame;
     private PlayPanel playPanel;
     private Input input;
+    private Stage stage;
 
     public Engine(Frame frame) {
         this.frame = frame;
         player = new Player(this);
         input = new Input(this);
         playPanel = new PlayPanel(this);
-
+        stage = new Stage(this);
 
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public Input getInput() {
         return input;

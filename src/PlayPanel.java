@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class PlayPanel extends JPanel {
 
     private Engine engine;
-    private ArrayList<Interactable> interactables;
 
     public PlayPanel(Engine engine) {
         this.engine = engine;
