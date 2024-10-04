@@ -29,11 +29,19 @@ public class OpenAIClient {
 
             // Create the request body
             JSONObject requestBody = new JSONObject();
-            requestBody.put("model", "gpt-3.5-turbo"); // Specify the model
+            requestBody.put("model", "gpt-4o-mini"); // Specify the model
             requestBody.put("messages", new org.json.simple.JSONArray() {{
                 add(new JSONObject() {{
                     put("role", "system");
-                    put("content", "You are a helpful assistant that generates food and nutrition-related questions.");
+                    put("content", "You are a game show host and have incredible knowledge about fruits, vegetables, grains, and meat" +
+                            "Keep the question and answers short and concise" +
+                            "The question should be formatted like this, " +
+                            "Question\n" +
+                            "A) AnswerChoice\n" +
+                            "B) AnswerChoice\n" +
+                            "C) AnswerChoice\n" +
+                            "D) AnswerChoice | [Letter of the Correct Answer]");
+
                 }});
                 add(new JSONObject() {{
                     put("role", "user");
@@ -88,10 +96,5 @@ public class OpenAIClient {
                 connection.disconnect();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        OpenAIClient client = new OpenAIClient();
-        System.out.println(client.generateQuestions("call me fruitpunch man"));
     }
 }
