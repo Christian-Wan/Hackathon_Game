@@ -110,6 +110,7 @@ public class Player {
         if (!checked) {
             onNPC = false;
             interacting = false;
+            engine.getStage().setAnswer("");
         }
     }
 

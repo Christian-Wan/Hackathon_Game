@@ -46,16 +46,16 @@ public class Stage {
     public void updateStage() {
         if (engine.getPlayer().isInteracting()) {
             if (button1.contains(engine.getMouseInput().getPoint())) {
-                answer = "a";
+                answer = "A";
             }
             else if (button2.contains(engine.getMouseInput().getPoint())) {
-                answer = "b";
+                answer = "B";
             }
             else if (button3.contains(engine.getMouseInput().getPoint())) {
-                answer = "c";
+                answer = "C";
             }
             else if (button4.contains(engine.getMouseInput().getPoint())) {
-                answer = "d";
+                answer = "D";
             }
             else if (button5.contains(engine.getMouseInput().getPoint())) {
                 answer = "hint";

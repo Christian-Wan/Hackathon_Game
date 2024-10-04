@@ -47,4 +47,8 @@ public class Textbox {
             x += 15;
         }
     }
+
+    public void clear() {
+        text.clear();
+    }
 }

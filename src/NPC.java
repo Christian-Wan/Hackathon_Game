@@ -13,10 +13,13 @@ public class NPC extends Interactable {
     private Engine engine;
     private boolean stoodOn;
     private Textbox text;
+    private Textbox correctText;
     private OpenAIClient openAIClient;
     private String answer;
     private Textbox hint;
-    private Boolean hintButtonPressed;
+    private Boolean correct;
+    private Boolean hintDisplay;
+
 
 
     public NPC(int x, int y, int height, int width, String name, Engine engine) {
@@ -24,9 +27,11 @@ public class NPC extends Interactable {
         this.engine = engine;
         this.name = name;
         stoodOn = false;
+        correct = false;
+        hintDisplay = false;
         openAIClient = new OpenAIClient();
         String question = openAIClient.generateQuestions("Generate a question about " + name + ", it can be anything about " + name);
-        String answer = question.substring(question.indexOf("[") + 1, question.indexOf("[") + 2);
+        answer = question.substring(question.indexOf("[") + 1, question.indexOf("[") + 2);
         if (answer.equals(" ")) {
             answer = question.substring(question.indexOf("[") + 2, question.indexOf("[") + 3);
         }
@@ -34,8 +39,10 @@ public class NPC extends Interactable {
         System.out.println(hint);
         System.out.println(answer);
         question = question.substring(0, question.indexOf("["));
-        text = new Textbox(question, 234, 469, 1198, 556, engine);
-        this.hint = new Textbox(hint,0, 0, 0, 0, engine);
+        text = new Textbox(question, 234, 469, 1188, 556, engine);
+        this.hint = new Textbox(hint,234, 50, 1188, 95, engine);
+        correctText = new Textbox("You are correct!", 234, 469, 1188, 556, engine);
+
 
         createImages();
     }
@@ -60,8 +67,22 @@ public class NPC extends Interactable {
             Font font = new Font("Consolas", Font.PLAIN, 20);
             g2.setFont(font);
             g2.drawString(name, 82, 555);
-            text.draw(g2);
+            System.out.println(engine.getStage().getAnswer());
+            System.out.println(answer);
+            if (engine.getStage().getAnswer().equals(answer)) {
+                System.out.println("i am sigma");
+                correct = true;
+            }
+            if (!correct) {
+                text.draw(g2);
+            }
+            if (correct) {
+                correctText.draw(g2);
+            }
             if (engine.getStage().getAnswer().equals("hint")) {
+                hintDisplay = true;
+            }
+            if (hintDisplay) {
                 hint.draw(g2);
             }
         }
