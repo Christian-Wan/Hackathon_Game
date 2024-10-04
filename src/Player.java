@@ -55,10 +55,11 @@ public class Player {
     }
 
     public void interact() {
-
+        boolean checked = false;
         for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
 
             if (engine.getStage().getInteractables().get(i).getInteractBox().contains(hitBox)) {
+                checked = true;
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     onNPC = true;
                     ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
@@ -88,6 +89,8 @@ public class Player {
             if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                 ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(false);
             }
+        }
+        if (!checked) {
             onNPC = false;
             interacting = false;
         }
