@@ -32,6 +32,7 @@ public class Stage {
     public Stage(Engine engine, String map) {
         this.engine = engine;
         currentMap = map;
+        answer = "";
         interactables = new ArrayList<>();
         button1 = new Rectangle(224, 384, 96, 46);
         button2 = new Rectangle(336, 384, 96, 46);
@@ -104,6 +105,14 @@ public class Stage {
 
     public ArrayList<Interactable> getInteractables() {
         return interactables;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getCurrentMap() {
