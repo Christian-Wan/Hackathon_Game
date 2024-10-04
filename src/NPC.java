@@ -48,7 +48,7 @@ public class NPC extends Interactable {
         text = new Textbox(question, 234, 469, 1188, 556, engine);
         this.hint = new Textbox(hint,234, 50, 1188, 95, engine);
         correctText = new Textbox("You are correct!", 234, 469, 1188, 556, engine);
-        explanationText = new Textbox(explanation, 234, 469, 1188, 556, engine);
+        explanationText = new Textbox("Correct answer: " + answer + ". " + explanation, 234, 469, 1188, 556, engine);
         incorrectText = new Textbox("You are incorrect.               ", 234, 469, 1188, 556, engine);
         createImages();
     }
