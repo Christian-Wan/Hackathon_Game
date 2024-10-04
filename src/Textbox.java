@@ -32,13 +32,18 @@ public class Textbox {
         }
     }
     public void draw(Graphics2D g2) {
-        if (engine.getFrame().getFrame() % 3 == 0 && index != text.size()) {
+        if (engine.getFrame().getFrame() % 2 == 0 && index != text.size()) {
             index ++;
         }
         int x = xCordStart;
+        int y = yCordStart;
         for (int i = 0; i < index; i ++) {
+            if (x > xCordEnd) {
+                y += 30;
+                x = xCordStart;
+            }
             g2.setFont(font);
-            g2.drawString(text.get(i), x, yCordStart);
+            g2.drawString(text.get(i), x, y);
             x += 20;
         }
     }

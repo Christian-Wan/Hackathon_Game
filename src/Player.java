@@ -79,6 +79,7 @@ public class Player {
                 checked = true;
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     onNPC = true;
+                    System.out.println(i);
                     ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
                     ArrayList<Integer> input = engine.getInput().getInputs();
                     if (input.contains(KeyEvent.VK_E)) {
