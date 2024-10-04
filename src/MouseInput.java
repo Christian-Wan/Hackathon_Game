@@ -9,6 +9,7 @@ public class MouseInput implements MouseListener {
 
     public MouseInput(Engine engine) {
         this.engine = engine;
+        point = new Point(0, 0);
     }
 
     public Point getPoint() {

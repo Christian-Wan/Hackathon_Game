@@ -25,5 +25,12 @@ public class PlayPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         engine.getStage().draw(g2);
         engine.getPlayer().draw(g2);
+        for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
+            if (engine.getStage().getInteractables().get(i) instanceof NPC) {
+                if (((NPC) engine.getStage().getInteractables().get(i)).isStoodOn()) {
+                    ((NPC) engine.getStage().getInteractables().get(i)).draw(g2);
+                }
+            }
+        }
     }
 }

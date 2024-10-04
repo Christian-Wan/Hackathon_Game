@@ -62,17 +62,7 @@ public class Stage {
             background = ImageIO.read(new File(path));
         } catch (IOException e) {}
         g.drawImage(background, 0, 0, 1280, 640, null);
-        for (int i = 0; i < interactables.size(); i++) {
-            g.drawRect(button1.x, button1.y, button1.width, button1.height);
-            g.drawRect(button2.x, button2.y, button2.width, button2.height);
-            g.drawRect(button3.x, button3.y, button3.width, button3.height);
-            g.drawRect(button4.x, button4.y, button4.width, button4.height);
-            if (interactables.get(i) instanceof NPC) {
-                if (((NPC) interactables.get(i)).isStoodOn()) {
-                    ((NPC) interactables.get(i)).draw(g);
-                }
-            }
-        }
+
 
     }
 
