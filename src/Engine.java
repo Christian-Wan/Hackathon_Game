@@ -8,6 +8,7 @@ public class Engine {
     private Input input;
     private Stage stage;
     private Textbox textbox;
+    private NPC npc;
 
     public Engine(Frame frame) {
         this.frame = frame;
@@ -15,7 +16,6 @@ public class Engine {
         input = new Input(this);
         playPanel = new PlayPanel(this);
         stage = new Stage(this);
-        textbox = new Textbox("what the flip! yabadabadoo i am the sigmaest of them all!", 100,100,0,0, this);
     }
 
     public Stage getStage() {

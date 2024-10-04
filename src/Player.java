@@ -11,7 +11,7 @@ public class Player {
     private Engine engine;
     private Rectangle hitBox;
     private int speed, xCord, yCord;
-    private boolean onNPC;
+    private boolean onNPC, interacting;
     private BufferedImage key, character;
 
     public Player(Engine engine) {
@@ -20,6 +20,7 @@ public class Player {
         speed = 4;
         xCord = 10;
         yCord = 10;
+        interacting = false;
         try {
             key = ImageIO.read(new File("images/Hack_Key.png"));
         } catch (IOException e) {}
@@ -36,6 +37,7 @@ public class Player {
         int left = input.indexOf(KeyEvent.VK_A);
         int down = input.indexOf(KeyEvent.VK_S);
         int right = input.indexOf(KeyEvent.VK_D);
+
 
         if (up > left && up > down && up > right) {
             yCord -= speed;
@@ -59,7 +61,11 @@ public class Player {
             if (engine.getStage().getInteractables().get(i).getInteractBox().contains(hitBox)) {
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     onNPC = true;
-
+                    ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
+                    ArrayList<Integer> input = engine.getInput().getInputs();
+                    if (input.contains(KeyEvent.VK_E)) {
+                        interacting = true;
+                    }
                 }
                 else {
                     if (engine.getStage().getInteractables().get(i).getInteractBox().getX() > 60) {
@@ -79,7 +85,11 @@ public class Player {
                 }
                 break;
             }
+            if (engine.getStage().getInteractables().get(i) instanceof NPC) {
+                ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(false);
+            }
             onNPC = false;
+            interacting = false;
         }
     }
 
@@ -89,5 +99,13 @@ public class Player {
             g.drawImage(key, xCord, yCord - 50, 32, 32, null);
             System.out.println("IS WORK?");
         }
+    }
+
+    public boolean isInteracting() {
+        return interacting;
+    }
+
+    public void setInteracting(boolean interacting) {
+        this.interacting = interacting;
     }
 }

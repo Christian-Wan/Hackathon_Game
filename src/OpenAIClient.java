@@ -90,4 +90,8 @@ public class OpenAIClient {
         }
     }
 
+    public static void main(String[] args) {
+        OpenAIClient client = new OpenAIClient();
+        System.out.println(client.generateQuestions("call me fruitpunch man"));
+    }
 }
