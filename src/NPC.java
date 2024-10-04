@@ -28,7 +28,10 @@ public class NPC extends Interactable {
         if (answer.equals(" ")) {
             answer = question.substring(question.indexOf("[") + 2, question.indexOf("[") + 3);
         }
+        String hint = question.substring(question.indexOf("|") + 1);
+        System.out.println(hint);
         System.out.println(answer);
+        question = question.substring(0, question.indexOf("|"));
         text = new Textbox(question, 234, 469, 1198, 556, engine);
 
         createImages();
