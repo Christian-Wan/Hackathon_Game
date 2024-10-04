@@ -40,7 +40,11 @@ public class Frame extends JFrame implements Runnable {
             if (frame == 61) {
                 frame = 0;
             }
-            engine.getPlayPanel().update();
+            try {
+                engine.getPlayPanel().update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             engine.getPlayPanel().repaint();
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();

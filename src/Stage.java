@@ -17,7 +17,8 @@ public class Stage {
     private String answer;
     private boolean settingsOpen, firstPress, pressedMusicSlider, pressedSfxSlider;
 
-    public Stage(Engine engine) {
+
+    public Stage(Engine engine) throws IOException {
         answer = "";
         this.engine = engine;
         currentMap = "map1";
@@ -27,11 +28,12 @@ public class Stage {
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
         button5 = new Rectangle(674, 384, 96, 46);
-        menuButton = new Rectangle(10, 10, 20, 20);
+        menuButton = new Rectangle(10, 10, 64, 64);
+
         parseMap();
     }
 
-    public Stage(Engine engine, String map) {
+    public Stage(Engine engine, String map) throws IOException {
         this.engine = engine;
         currentMap = map;
         answer = "";
@@ -41,6 +43,7 @@ public class Stage {
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
         button5 = new Rectangle(674, 384, 96, 46);
+        menuButton = new Rectangle(10, 10, 64, 64);
         parseMap();
     }
 
@@ -99,10 +102,6 @@ public class Stage {
             background = ImageIO.read(new File(path));
         } catch (IOException e) {}
         g.drawImage(background, 0, 0, 1280, 640, null);
-        g.drawRect(menuButton.x, menuButton.y, menuButton.width, menuButton.height);
-
-
-
     }
 
 

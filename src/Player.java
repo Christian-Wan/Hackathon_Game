@@ -20,7 +20,7 @@ public class Player {
         hitBox = new Rectangle(xCord, yCord, 10, 10);
         speed = 10;
         xCord = 10;
-        yCord = 10;
+        yCord = 300;
         numOfCorrectAnswers = 0;
         interacting = false;
         direction = "down";
@@ -38,7 +38,7 @@ public class Player {
         } catch (IOException e) {}
     }
 
-    public void updatePlayer() {
+    public void updatePlayer() throws IOException {
         movePlayer();
         interact();
     }
@@ -72,7 +72,7 @@ public class Player {
         hitBox.setLocation(xCord, yCord);
     }
 
-    public void interact() {
+    public void interact() throws IOException {
         boolean checked = false;
         for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
 
