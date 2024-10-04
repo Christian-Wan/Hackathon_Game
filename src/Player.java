@@ -17,7 +17,7 @@ public class Player {
 
     public Player(Engine engine) {
         this.engine = engine;
-        hitBox = new Rectangle(xCord, yCord, 10, 10);
+        hitBox = new Rectangle(xCord, yCord, 64, 64);
         speed = 4;
         xCord = 10;
         yCord = 10;
@@ -141,7 +141,7 @@ public class Player {
                 default -> image;
             };
         }
-        g.drawImage(image, xCord - 10, yCord - 5, 32, 32, null);
+        g.drawImage(image, xCord - 10, yCord - 5, 64, 64, null);
         if (onNPC) {
             g.drawImage(key, xCord - 10, yCord - 40, 32, 32, null);
         }

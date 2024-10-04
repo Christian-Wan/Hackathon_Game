@@ -22,7 +22,7 @@ public class Textbox {
         this.text = new ArrayList<String>();
         convertToList(text);
         this.engine = engine;
-        font = new Font("Consolas", Font.PLAIN, 30);
+        font = new Font("Consolas", Font.PLAIN, 25);
         index = 0;
     }
 
@@ -39,12 +39,12 @@ public class Textbox {
         int y = yCordStart;
         for (int i = 0; i < index; i ++) {
             if (x > xCordEnd) {
-                y += 30;
+                y += 25;
                 x = xCordStart;
             }
             g2.setFont(font);
             g2.drawString(text.get(i), x, y);
-            x += 20;
+            x += 15;
         }
     }
 }
