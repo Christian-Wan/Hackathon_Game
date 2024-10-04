@@ -84,6 +84,10 @@ public class Player {
                         numOfCorrectAnswers ++;
                         ((NPC) engine.getStage().getInteractables().get(i)).setCheckedOnce(true);
                     }
+                    if (((NPC) engine.getStage().getInteractables().get(i)).getIncorrect() && !((NPC) engine.getStage().getInteractables().get(i)).getCheckedOnce()) {
+                        numOfCorrectAnswers --;
+                        ((NPC) engine.getStage().getInteractables().get(i)).setCheckedOnce(true);
+                    }
                     ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
                     ArrayList<Integer> input = engine.getInput().getInputs();
                     if (input.contains(KeyEvent.VK_E)) {

@@ -12,14 +12,14 @@ public class NPC extends Interactable {
     private BufferedImage textbox;
     private Engine engine;
     private boolean stoodOn;
-    private Textbox text;
-    private Textbox correctText;
+    private Textbox text, correctText, explanationText, incorrectText;
     private OpenAIClient openAIClient;
     private String answer;
     private Textbox hint;
     private Boolean correct;
     private Boolean hintDisplay;
     private Boolean checkedOnce;
+    private Boolean incorrect;
 
 
 
@@ -31,6 +31,7 @@ public class NPC extends Interactable {
         checkedOnce = false;
         correct = false;
         hintDisplay = false;
+        incorrect = false;
         openAIClient = new OpenAIClient();
         String question = openAIClient.generateQuestions("Generate a question about " + name + ", it can be anything about " + name);
         System.out.println(question);
@@ -38,15 +39,17 @@ public class NPC extends Interactable {
         if (answer.equals(" ")) {
             answer = question.substring(question.indexOf("[") + 2, question.indexOf("[") + 3);
         }
-        String hint = question.substring(question.indexOf("|") + 1);
+        String hint = question.substring(question.indexOf("|") + 1, question.indexOf("/"));
+        String explanation = question.substring(question.indexOf("/") + 1);
         System.out.println(hint);
         System.out.println(answer);
+
         question = question.substring(0, question.indexOf("["));
         text = new Textbox(question, 234, 469, 1188, 556, engine);
         this.hint = new Textbox(hint,234, 50, 1188, 95, engine);
         correctText = new Textbox("You are correct!", 234, 469, 1188, 556, engine);
-
-
+        explanationText = new Textbox(explanation, 234, 469, 1188, 556, engine);
+        incorrectText = new Textbox("You are incorrect.               ", 234, 469, 1188, 556, engine);
         createImages();
     }
 
@@ -60,8 +63,6 @@ public class NPC extends Interactable {
         }
     }
 
-    public void printHint(Graphics2D g2) {
-    }
 
     public void draw(Graphics2D g2) {
         if (engine.getPlayer().isInteracting()) {
@@ -72,21 +73,32 @@ public class NPC extends Interactable {
             g2.drawString(name, 82, 555);
             System.out.println(engine.getStage().getAnswer());
             System.out.println(answer);
-            if (engine.getStage().getAnswer().equals(answer)) {
+            if (engine.getStage().getAnswer().equals(answer) && !incorrect) {
                 System.out.println("i am sigma");
                 correct = true;
             }
-            if (!correct) {
+            else if (engine.getStage().getAnswer().equals("hint")){
+                hintDisplay = true;
+            }
+            else if (!engine.getStage().getAnswer().isEmpty()){
+                incorrect = true;
+            }
+            if (!correct && !incorrect) {
                 text.draw(g2);
             }
             if (correct) {
                 correctText.draw(g2);
             }
-            if (engine.getStage().getAnswer().equals("hint")) {
-                hintDisplay = true;
-            }
             if (hintDisplay) {
                 hint.draw(g2);
+            }
+            if (incorrect) {
+                if (!incorrectText.isDonePrinting()) {
+                    incorrectText.draw(g2);
+                }
+                if (incorrectText.isDonePrinting()) {
+                    explanationText.draw(g2);
+                }
             }
         }
     }
@@ -109,6 +121,14 @@ public class NPC extends Interactable {
 
     public void setCheckedOnce(Boolean checkedOnce) {
         this.checkedOnce = checkedOnce;
+    }
+
+    public Boolean getIncorrect() {
+        return incorrect;
+    }
+
+    public void setIncorrect(Boolean incorrect) {
+        this.incorrect = incorrect;
     }
 }
 
