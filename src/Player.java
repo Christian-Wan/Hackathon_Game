@@ -79,7 +79,6 @@ public class Player {
                 checked = true;
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     onNPC = true;
-                    System.out.println(i);
                     ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
                     ArrayList<Integer> input = engine.getInput().getInputs();
                     if (input.contains(KeyEvent.VK_E)) {
@@ -145,7 +144,6 @@ public class Player {
         g.drawImage(image, xCord - 10, yCord - 5, 32, 32, null);
         if (onNPC) {
             g.drawImage(key, xCord - 10, yCord - 40, 32, 32, null);
-            System.out.println("IS WORK?");
         }
     }
 

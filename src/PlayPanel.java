@@ -9,12 +9,14 @@ public class PlayPanel extends JPanel {
     public PlayPanel(Engine engine) {
         this.engine = engine;
         this.setFocusable(true);
+        this.addMouseListener(engine.getMouseInput());
         this.addKeyListener(engine.getInput());
     }
 
 
     public void update() {
         engine.getPlayer().updatePlayer();
+        engine.getStage().updateStage();
     }
 
     @Override

@@ -9,13 +9,23 @@ public class Engine {
     private Stage stage;
     private Textbox textbox;
     private NPC npc;
+    private MouseInput mouseInput;
 
     public Engine(Frame frame) {
         this.frame = frame;
         player = new Player(this);
         input = new Input(this);
+        mouseInput = new MouseInput(this);
         playPanel = new PlayPanel(this);
         stage = new Stage(this);
+    }
+
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
+
+    public void setMouseInput(MouseInput mouseInput) {
+        this.mouseInput = mouseInput;
     }
 
     public Stage getStage() {
