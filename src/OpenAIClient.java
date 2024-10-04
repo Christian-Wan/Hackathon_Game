@@ -40,7 +40,7 @@ public class OpenAIClient {
                             "A) AnswerChoice\n" +
                             "B) AnswerChoice\n" +
                             "C) AnswerChoice\n" +
-                            "D) AnswerChoice | [Letter of the Correct Answer]");
+                            "D) AnswerChoice [Letter of the Correct Answer] | HintOfTheAnswer");
 
                 }});
                 add(new JSONObject() {{
