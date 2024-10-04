@@ -13,7 +13,7 @@ public class SoundControl {
     private int firstX;
     private BufferedImage settings, slider;
     private Rectangle sfxSlider, musicSlider, close;
-    private Clip music, jump, click, portal, buttonPress;
+    private Clip music, click;
 
     public SoundControl() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         sfxSlider = new Rectangle(775, 393, 12, 46);
@@ -26,15 +26,9 @@ public class SoundControl {
         slider = ImageIO.read(new File("images/Slider.png")).getSubimage(30, 20, 4, 23);
 
         music = AudioSystem.getClip();
-        music.open(AudioSystem.getAudioInputStream(new File("audio/Yonder Hill and Dale - Aaron Kenny.wav").getAbsoluteFile()));
-        jump = AudioSystem.getClip();
-        jump.open(AudioSystem.getAudioInputStream(new File("audio/Jump.wav").getAbsoluteFile()));
+        music.open(AudioSystem.getAudioInputStream(new File("audio/bg-music.wav").getAbsoluteFile()));
         click = AudioSystem.getClip();
         click.open(AudioSystem.getAudioInputStream(new File("audio/Click.wav").getAbsoluteFile()));
-        portal = AudioSystem.getClip();
-        portal.open(AudioSystem.getAudioInputStream(new File("audio/Portal_Enter.wav").getAbsoluteFile()));
-        buttonPress = AudioSystem.getClip();
-        buttonPress.open(AudioSystem.getAudioInputStream(new File("audio/Button_Press.wav").getAbsoluteFile()));
 
         musicSound = -14.0f;
         musicControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
@@ -42,18 +36,13 @@ public class SoundControl {
         music.loop(Clip.LOOP_CONTINUOUSLY);
 
         sfxSound = -14.0f;
-        jumpControl = (FloatControl) jump.getControl((FloatControl.Type.MASTER_GAIN));
         clickControl = (FloatControl) click.getControl((FloatControl.Type.MASTER_GAIN));
-        portalControl = (FloatControl) portal.getControl((FloatControl.Type.MASTER_GAIN));
-        buttonPressControl = (FloatControl) buttonPress.getControl((FloatControl.Type.MASTER_GAIN));
     }
 
     public void update() {
         musicControl.setValue(musicSound);
-        jumpControl.setValue(sfxSound);
         clickControl.setValue(sfxSound);
-        portalControl.setValue(sfxSound);
-        buttonPressControl.setValue(sfxSound);
+
     }
 
     public void draw(Graphics2D g) {
@@ -113,25 +102,12 @@ public class SoundControl {
         }
     }
 
-    public void playJump() {
-        jump.setMicrosecondPosition(0);
-        jump.start();
-    }
-
     public void playClick() {
         click.setMicrosecondPosition(0);
         click.start();
     }
 
-    public void playPortal() {
-        portal.setMicrosecondPosition(0);
-        portal.start();
-    }
 
-    public void playButton() {
-        buttonPress.setMicrosecondPosition(0);
-        buttonPress.start();
-    }
 
     public Rectangle getSfxSlider() {
         return sfxSlider;
