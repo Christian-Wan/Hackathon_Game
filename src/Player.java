@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
@@ -7,6 +11,8 @@ public class Player {
     private Engine engine;
     private Rectangle hitBox;
     private int speed, xCord, yCord;
+    private boolean onNPC;
+    private BufferedImage key, character;
 
     public Player(Engine engine) {
         this.engine = engine;
@@ -14,6 +20,9 @@ public class Player {
         speed = 4;
         xCord = 10;
         yCord = 10;
+        try {
+            key = ImageIO.read(new File("images/Hack_Key.png"));
+        } catch (IOException e) {}
     }
 
     public void updatePlayer() {
@@ -48,10 +57,8 @@ public class Player {
         for (int i = 0; i < engine.getStage().getInteractables().size(); i++) {
 
             if (engine.getStage().getInteractables().get(i).getInteractBox().contains(hitBox)) {
-                System.out.println("test");
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
-                    //SHOW TEXT ABOVE PLAYER HEAD THAT STATES THE PLAYER CAN PRESS E TO INTERACT
-                    System.out.println("NPC HERE");
+                    onNPC = true;
 
                 }
                 else {
@@ -69,12 +76,18 @@ public class Player {
                     }
 
                     hitBox.setLocation(xCord, yCord);
-               }
+                }
+                break;
             }
+            onNPC = false;
         }
     }
 
     public void draw(Graphics2D g) {
         g.drawRect(xCord, yCord, hitBox.width, hitBox.height);
+        if (onNPC) {
+            g.drawImage(key, xCord, yCord - 50, 32, 32, null);
+            System.out.println("IS WORK?");
+        }
     }
 }
