@@ -25,7 +25,7 @@ public class Stage {
         button2 = new Rectangle(336, 384, 96, 46);
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
-        button5 = new Rectangle(672, 384, 96, 46);
+        button5 = new Rectangle(674, 384, 96, 46);
         parseMap();
     }
 
@@ -37,6 +37,7 @@ public class Stage {
         button2 = new Rectangle(336, 384, 96, 46);
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
+        button5 = new Rectangle(674, 384, 96, 46);
         parseMap();
     }
 
@@ -56,7 +57,7 @@ public class Stage {
                 answer = "d";
             }
             else if (button5.contains(engine.getMouseInput().getPoint())) {
-                System.out.println("hint");
+                answer = "hint";
             }
         }
     }
