@@ -10,7 +10,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class OpenAIClient {
 
-    // INITIALIZING VARIABLES
+    // Add your actual OpenAI API key here
+
     Dotenv dotenv = Dotenv.load();
     private final String API_URL = dotenv.get("API_URL");
     private final String API_KEY = dotenv.get("API_KEY"); // <-- Replace with your actual API key
@@ -87,5 +88,10 @@ public class OpenAIClient {
                 connection.disconnect();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        OpenAIClient client = new OpenAIClient();
+        System.out.println(client.generateQuestions("call me fruitpunch man"));
     }
 }
