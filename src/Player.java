@@ -18,7 +18,7 @@ public class Player {
     public Player(Engine engine) {
         this.engine = engine;
         hitBox = new Rectangle(xCord, yCord, 10, 10);
-        speed = 10;
+        speed = 5;
         xCord = 10;
         yCord = 300;
         numOfCorrectAnswers = 0;
