@@ -13,12 +13,14 @@ public class Textbox {
     private int yCordEnd;
     private Font font;
     private int index;
+    private boolean donePrinting;
 
     public Textbox(String text, int xCordStart, int yCordStart, int xCordEnd, int yCordEnd, Engine engine) {
         this.xCordStart = xCordStart;
         this.yCordStart = yCordStart;
         this.xCordEnd = xCordEnd;
         this.yCordEnd = yCordEnd;
+        donePrinting = false;
         this.text = new ArrayList<String>();
         convertToList(text);
         this.engine = engine;
@@ -35,6 +37,9 @@ public class Textbox {
         if (engine.getFrame().getFrame() % 2 == 0 && index != text.size()) {
             index ++;
         }
+        if (index == text.size()) {
+            donePrinting = true;
+        }
         int x = xCordStart;
         int y = yCordStart;
         for (int i = 0; i < index; i ++) {
@@ -46,5 +51,17 @@ public class Textbox {
             g2.drawString(text.get(i), x, y);
             x += 15;
         }
+    }
+
+    public void clear() {
+        text.clear();
+    }
+
+    public boolean isDonePrinting() {
+        return donePrinting;
+    }
+
+    public void setDonePrinting(boolean donePrinting) {
+        this.donePrinting = donePrinting;
     }
 }

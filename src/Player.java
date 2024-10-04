@@ -10,7 +10,7 @@ public class Player {
 
     private Engine engine;
     private Rectangle hitBox;
-    private int speed, xCord, yCord, frameNumber, frameCounter;
+    private int speed, xCord, yCord, frameNumber, frameCounter, numOfCorrectAnswers, totalNumOfQuestions;
     private boolean onNPC, interacting, moving;
     private BufferedImage key, standDown, standLeft, standUp, standRight, walkDown, walkLeft, walkRight, walkUp;
     private String direction;
@@ -18,9 +18,10 @@ public class Player {
     public Player(Engine engine) {
         this.engine = engine;
         hitBox = new Rectangle(xCord, yCord, 10, 10);
-        speed = 4;
+        speed = 10;
         xCord = 10;
         yCord = 10;
+        numOfCorrectAnswers = 0;
         interacting = false;
         direction = "down";
         moving = false;
@@ -79,6 +80,14 @@ public class Player {
                 checked = true;
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     onNPC = true;
+                    if (((NPC) engine.getStage().getInteractables().get(i)).getCorrect() && !((NPC) engine.getStage().getInteractables().get(i)).getCheckedOnce()) {
+                        numOfCorrectAnswers ++;
+                        ((NPC) engine.getStage().getInteractables().get(i)).setCheckedOnce(true);
+                    }
+                    if (((NPC) engine.getStage().getInteractables().get(i)).getIncorrect() && !((NPC) engine.getStage().getInteractables().get(i)).getCheckedOnce()) {
+                        numOfCorrectAnswers --;
+                        ((NPC) engine.getStage().getInteractables().get(i)).setCheckedOnce(true);
+                    }
                     ((NPC) engine.getStage().getInteractables().get(i)).setStoodOn(true);
                     ArrayList<Integer> input = engine.getInput().getInputs();
                     if (input.contains(KeyEvent.VK_E)) {
@@ -93,7 +102,6 @@ public class Player {
 
                     }
                     else {
-                        System.out.println("GO PREVIOUS");
                         String nextMap = "map" +  (Integer.parseInt(engine.getStage().getCurrentMap().substring(3)) - 1);
                         engine.setStage(new Stage(engine, nextMap));
                         xCord = 1250;
@@ -110,6 +118,7 @@ public class Player {
         if (!checked) {
             onNPC = false;
             interacting = false;
+            engine.getStage().setAnswer("");
         }
     }
 
@@ -143,10 +152,14 @@ public class Player {
         }
 
         g.drawImage(image, xCord - 25, yCord - 10, 64, 64, null);
-        g.drawRect(xCord, yCord, hitBox.width, hitBox.height);
         if (onNPC) {
             g.drawImage(key, xCord - 10, yCord - 40, 32, 32, null);
         }
+        Font font = new Font("Consolas", Font.PLAIN, 40);
+        g.setFont(font);
+        g.setColor(Color.WHITE);
+        g.drawString("Correct: " + numOfCorrectAnswers, 1000, 50);
+        g.setColor(Color.BLACK);
     }
 
     public boolean isInteracting() {

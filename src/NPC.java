@@ -12,11 +12,15 @@ public class NPC extends Interactable {
     private BufferedImage textbox;
     private Engine engine;
     private boolean stoodOn;
-    private Textbox text;
+    private Textbox text, correctText, explanationText, incorrectText;
     private OpenAIClient openAIClient;
     private String answer;
     private Textbox hint;
-    private Boolean hintButtonPressed;
+    private Boolean correct;
+    private Boolean hintDisplay;
+    private Boolean checkedOnce;
+    private Boolean incorrect;
+
 
 
     public NPC(int x, int y, int height, int width, String name, Engine engine) {
@@ -24,19 +28,28 @@ public class NPC extends Interactable {
         this.engine = engine;
         this.name = name;
         stoodOn = false;
+        checkedOnce = false;
+        correct = false;
+        hintDisplay = false;
+        incorrect = false;
         openAIClient = new OpenAIClient();
         String question = openAIClient.generateQuestions("Generate a question about " + name + ", it can be anything about " + name);
-        String answer = question.substring(question.indexOf("[") + 1, question.indexOf("[") + 2);
+        System.out.println(question);
+        answer = question.substring(question.indexOf("[") + 1, question.indexOf("[") + 2);
         if (answer.equals(" ")) {
             answer = question.substring(question.indexOf("[") + 2, question.indexOf("[") + 3);
         }
-        String hint = question.substring(question.indexOf("|") + 1);
+        String hint = question.substring(question.indexOf("|") + 1, question.indexOf("/"));
+        String explanation = question.substring(question.indexOf("/") + 1);
         System.out.println(hint);
         System.out.println(answer);
-        question = question.substring(0, question.indexOf("["));
-        text = new Textbox(question, 234, 469, 1198, 556, engine);
-        this.hint = new Textbox(hint,0, 0, 0, 0, engine);
 
+        question = question.substring(0, question.indexOf("["));
+        text = new Textbox(question, 234, 469, 1188, 556, engine);
+        this.hint = new Textbox(hint,234, 50, 1188, 95, engine);
+        correctText = new Textbox("You are correct!", 234, 469, 1188, 556, engine);
+        explanationText = new Textbox("Correct answer: " + answer + ". " + explanation, 234, 469, 1188, 556, engine);
+        incorrectText = new Textbox("You are incorrect.               ", 234, 469, 1188, 556, engine);
         createImages();
     }
 
@@ -50,8 +63,6 @@ public class NPC extends Interactable {
         }
     }
 
-    public void printHint(Graphics2D g2) {
-    }
 
     public void draw(Graphics2D g2) {
         if (engine.getPlayer().isInteracting()) {
@@ -60,9 +71,34 @@ public class NPC extends Interactable {
             Font font = new Font("Consolas", Font.PLAIN, 20);
             g2.setFont(font);
             g2.drawString(name, 82, 555);
-            text.draw(g2);
-            if (engine.getStage().getAnswer().equals("hint")) {
+            System.out.println(engine.getStage().getAnswer());
+            System.out.println(answer);
+            if (engine.getStage().getAnswer().equals(answer) && !incorrect) {
+                System.out.println("i am sigma");
+                correct = true;
+            }
+            else if (engine.getStage().getAnswer().equals("hint")){
+                hintDisplay = true;
+            }
+            else if (!engine.getStage().getAnswer().isEmpty()){
+                incorrect = true;
+            }
+            if (!correct && !incorrect) {
+                text.draw(g2);
+            }
+            if (correct) {
+                correctText.draw(g2);
+            }
+            if (hintDisplay) {
                 hint.draw(g2);
+            }
+            if (incorrect) {
+                if (!incorrectText.isDonePrinting()) {
+                    incorrectText.draw(g2);
+                }
+                if (incorrectText.isDonePrinting()) {
+                    explanationText.draw(g2);
+                }
             }
         }
     }
@@ -74,4 +110,26 @@ public class NPC extends Interactable {
     public void setStoodOn(boolean stoodOn) {
         this.stoodOn = stoodOn;
     }
+
+    public Boolean getCorrect() {
+        return correct;
+    }
+
+    public Boolean getCheckedOnce() {
+        return checkedOnce;
+    }
+
+    public void setCheckedOnce(Boolean checkedOnce) {
+        this.checkedOnce = checkedOnce;
+    }
+
+    public Boolean getIncorrect() {
+        return incorrect;
+    }
+
+    public void setIncorrect(Boolean incorrect) {
+        this.incorrect = incorrect;
+    }
 }
+
+
