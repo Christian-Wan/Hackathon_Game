@@ -10,9 +10,10 @@ public class Player {
 
     private Engine engine;
     private Rectangle hitBox;
-    private int speed, xCord, yCord;
-    private boolean onNPC, interacting;
-    private BufferedImage key, character;
+    private int speed, xCord, yCord, frameNumber, frameCounter;
+    private boolean onNPC, interacting, moving;
+    private BufferedImage key, standDown, standLeft, standUp, standRight, walkDown, walkLeft, walkRight, walkUp;
+    private String direction;
 
     public Player(Engine engine) {
         this.engine = engine;
@@ -21,8 +22,18 @@ public class Player {
         xCord = 10;
         yCord = 10;
         interacting = false;
+        direction = "down";
+        moving = false;
         try {
             key = ImageIO.read(new File("images/Hack_Key.png"));
+            standDown = ImageIO.read(new File("images/down0.png"));
+            standLeft = ImageIO.read(new File("images/left0.png"));
+            standRight = ImageIO.read(new File("images/right0.png"));
+            standUp = ImageIO.read(new File("images/up0.png"));
+            walkDown = ImageIO.read(new File("images/down-sheet.png"));
+            walkLeft = ImageIO.read(new File("images/left-sheet.png"));
+            walkRight = ImageIO.read(new File("images/right-sheet.png"));
+            walkUp = ImageIO.read(new File("images/up-sheet.png"));
         } catch (IOException e) {}
     }
 
@@ -38,18 +49,24 @@ public class Player {
         int down = input.indexOf(KeyEvent.VK_S);
         int right = input.indexOf(KeyEvent.VK_D);
 
-
-        if (up > left && up > down && up > right) {
-            yCord -= speed;
+        if (up != -1 || left != -1 || down != -1 || right != -1) {
+            moving = true;
+            if (up > left && up > down && up > right) {
+                yCord -= speed;
+                direction = "up";
+            } else if (left > up && left > down && left > right) {
+                xCord -= speed;
+                direction = "left";
+            } else if (down > left && down > up && down > right) {
+                yCord += speed;
+                direction = "down";
+            } else if (right > left && right > down && right > up) {
+                xCord += speed;
+                direction = "right";
+            }
         }
-        else if (left > up && left > down && left > right) {
-            xCord -= speed;
-        }
-        else if (down > left && down > up && down > right) {
-            yCord += speed;
-        }
-        else if (right > left && right > down && right > up) {
-            xCord += speed;
+        else {
+            moving = false;
         }
         hitBox.setLocation(xCord, yCord);
     }
@@ -97,9 +114,36 @@ public class Player {
     }
 
     public void draw(Graphics2D g) {
-        g.drawRect(xCord, yCord, hitBox.width, hitBox.height);
+        BufferedImage image = null;
+        frameCounter++;
+        if (frameCounter == 6) {
+            frameNumber++;
+            frameCounter = 0;
+        }
+        if (frameNumber == 2) {
+            frameNumber = 0;
+        }
+        if (!moving) {
+            image = switch (direction) {
+                case "up" -> standUp;
+                case "left" -> standLeft;
+                case "down" -> standDown;
+                case "right" -> standRight;
+                default -> image;
+            };
+        }
+        else {
+            image = switch (direction) {
+                case "up" -> walkUp.getSubimage(32 * frameNumber, 0, 32, 32);
+                case "left" -> walkLeft.getSubimage(32 * frameNumber, 0, 32, 32);
+                case "down" -> walkDown.getSubimage(32 * frameNumber, 0, 32, 32);
+                case "right" -> walkRight.getSubimage(32 * frameNumber, 0, 32, 32);
+                default -> image;
+            };
+        }
+        g.drawImage(image, xCord - 10, yCord - 5, 32, 32, null);
         if (onNPC) {
-            g.drawImage(key, xCord, yCord - 50, 32, 32, null);
+            g.drawImage(key, xCord - 10, yCord - 40, 32, 32, null);
             System.out.println("IS WORK?");
         }
     }

@@ -41,7 +41,6 @@ public class Stage {
         } catch (IOException e) {}
         g.drawImage(background, 0, 0, 1280, 640, null);
         for (int i = 0; i < interactables.size(); i++) {
-            g.drawRect((int) interactables.get(i).getInteractBox().getX(),(int) interactables.get(i).getInteractBox().getY(),(int) interactables.get(i).getInteractBox().getWidth(),(int) interactables.get(i).getInteractBox().getHeight());
             if (interactables.get(i) instanceof NPC) {
                 if (((NPC) interactables.get(i)).isStoodOn()) {
                     ((NPC) interactables.get(i)).draw(g);
