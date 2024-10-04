@@ -13,9 +13,11 @@ public class Stage {
     private Engine engine;
     private ArrayList<Interactable> interactables;
     private String currentMap;
-    private Rectangle button1, button2, button3, button4;
+    private Rectangle button1, button2, button3, button4, button5;
+    private String answer;
 
     public Stage(Engine engine) {
+        answer = "";
         this.engine = engine;
         currentMap = "map1";
         interactables = new ArrayList<>();
@@ -23,6 +25,7 @@ public class Stage {
         button2 = new Rectangle(336, 384, 96, 46);
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
+        button5 = new Rectangle(672, 384, 96, 46);
         parseMap();
     }
 
@@ -41,16 +44,19 @@ public class Stage {
     public void updateStage() {
         if (engine.getPlayer().isInteracting()) {
             if (button1.contains(engine.getMouseInput().getPoint())) {
-                System.out.println("Button1");
+                answer = "a";
             }
             else if (button2.contains(engine.getMouseInput().getPoint())) {
-                System.out.println("Button2");
+                answer = "b";
             }
             else if (button3.contains(engine.getMouseInput().getPoint())) {
-                System.out.println("Button3");
+                answer = "c";
             }
             else if (button4.contains(engine.getMouseInput().getPoint())) {
-                System.out.println("Button4");
+                answer = "d";
+            }
+            else if (button5.contains(engine.getMouseInput().getPoint())) {
+                System.out.println("hint");
             }
         }
     }
