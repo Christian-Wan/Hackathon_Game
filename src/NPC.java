@@ -15,6 +15,8 @@ public class NPC extends Interactable {
     private Textbox text;
     private OpenAIClient openAIClient;
     private String answer;
+    private Textbox hint;
+    private Boolean hintButtonPressed;
 
 
     public NPC(int x, int y, int height, int width, String name, Engine engine) {
@@ -31,8 +33,9 @@ public class NPC extends Interactable {
         String hint = question.substring(question.indexOf("|") + 1);
         System.out.println(hint);
         System.out.println(answer);
-        question = question.substring(0, question.indexOf("|"));
+        question = question.substring(0, question.indexOf("["));
         text = new Textbox(question, 234, 469, 1198, 556, engine);
+        this.hint = new Textbox(hint,0, 0, 0, 0, engine);
 
         createImages();
     }
@@ -47,6 +50,9 @@ public class NPC extends Interactable {
         }
     }
 
+    public void printHint(Graphics2D g2) {
+    }
+
     public void draw(Graphics2D g2) {
         if (engine.getPlayer().isInteracting()) {
             g2.drawImage(textbox, 0, 0, null);
@@ -55,6 +61,9 @@ public class NPC extends Interactable {
             g2.setFont(font);
             g2.drawString(name, 82, 555);
             text.draw(g2);
+            if (engine.getStage().getAnswer().equals("hint")) {
+                hint.draw(g2);
+            }
         }
     }
 
