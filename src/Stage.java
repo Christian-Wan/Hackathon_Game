@@ -61,6 +61,7 @@ public class Stage {
                 answer = "hint";
             }
         }
+        
     }
 
     public void draw(Graphics2D g) {

@@ -19,6 +19,7 @@ public class NPC extends Interactable {
     private Textbox hint;
     private Boolean correct;
     private Boolean hintDisplay;
+    private Boolean checkedOnce;
 
 
 
@@ -27,10 +28,12 @@ public class NPC extends Interactable {
         this.engine = engine;
         this.name = name;
         stoodOn = false;
+        checkedOnce = false;
         correct = false;
         hintDisplay = false;
         openAIClient = new OpenAIClient();
         String question = openAIClient.generateQuestions("Generate a question about " + name + ", it can be anything about " + name);
+        System.out.println(question);
         answer = question.substring(question.indexOf("[") + 1, question.indexOf("[") + 2);
         if (answer.equals(" ")) {
             answer = question.substring(question.indexOf("[") + 2, question.indexOf("[") + 3);
@@ -95,4 +98,18 @@ public class NPC extends Interactable {
     public void setStoodOn(boolean stoodOn) {
         this.stoodOn = stoodOn;
     }
+
+    public Boolean getCorrect() {
+        return correct;
+    }
+
+    public Boolean getCheckedOnce() {
+        return checkedOnce;
+    }
+
+    public void setCheckedOnce(Boolean checkedOnce) {
+        this.checkedOnce = checkedOnce;
+    }
 }
+
+
