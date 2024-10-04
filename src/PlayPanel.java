@@ -17,6 +17,7 @@ public class PlayPanel extends JPanel {
     public void update() {
         engine.getPlayer().updatePlayer();
         engine.getStage().updateStage();
+        engine.getSoundControl().update();
     }
 
     @Override
@@ -31,6 +32,9 @@ public class PlayPanel extends JPanel {
                     ((NPC) engine.getStage().getInteractables().get(i)).draw(g2);
                 }
             }
+        }
+        if (engine.getStage().isSettingsOpen()) {
+            engine.getSoundControl().draw(g2);
         }
     }
 }

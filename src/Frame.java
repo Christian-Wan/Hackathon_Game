@@ -1,4 +1,7 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import java.io.IOException;
 
 public class Frame extends JFrame implements Runnable {
 
@@ -7,7 +10,7 @@ public class Frame extends JFrame implements Runnable {
     private Thread windowThread;
     private int frame;
 
-    public Frame() {
+    public Frame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         engine = new Engine(this);
         this.add(engine.getPlayPanel());
         engine.getPlayPanel().requestFocus();

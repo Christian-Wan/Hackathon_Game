@@ -1,3 +1,6 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 //The purpose of engine is to allow each class to access every object made
 public class Engine {
@@ -10,9 +13,11 @@ public class Engine {
     private Textbox textbox;
     private NPC npc;
     private MouseInput mouseInput;
+    private SoundControl soundControl;
 
-    public Engine(Frame frame) {
+    public Engine(Frame frame) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         this.frame = frame;
+        soundControl = new SoundControl();
         player = new Player(this);
         input = new Input(this);
         mouseInput = new MouseInput(this);
@@ -76,5 +81,9 @@ public class Engine {
 
     public void setTextbox(Textbox textbox) {
         this.textbox = textbox;
+    }
+
+    public SoundControl getSoundControl() {
+        return soundControl;
     }
 }

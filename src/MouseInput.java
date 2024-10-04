@@ -19,7 +19,7 @@ public class MouseInput implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        engine.getSoundControl().playClick();
     }
 
     @Override
@@ -30,6 +30,9 @@ public class MouseInput implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         point = new Point(0, 0);
+        engine.getStage().setFirstPress(false);
+        engine.getStage().setPressedMusicSlider(false);
+        engine.getStage().setPressedSfxSlider(false);
     }
 
     @Override

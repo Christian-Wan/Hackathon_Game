@@ -13,8 +13,9 @@ public class Stage {
     private Engine engine;
     private ArrayList<Interactable> interactables;
     private String currentMap;
-    private Rectangle button1, button2, button3, button4, button5;
+    private Rectangle button1, button2, button3, button4, button5, menuButton;
     private String answer;
+    private boolean settingsOpen, firstPress, pressedMusicSlider, pressedSfxSlider;
 
     public Stage(Engine engine) {
         answer = "";
@@ -26,6 +27,7 @@ public class Stage {
         button3 = new Rectangle(448, 384, 96, 46);
         button4 = new Rectangle(560, 384, 96, 46);
         button5 = new Rectangle(674, 384, 96, 46);
+        menuButton = new Rectangle(10, 10, 20, 20);
         parseMap();
     }
 
@@ -44,6 +46,31 @@ public class Stage {
 
 
     public void updateStage() {
+        if (!settingsOpen) {
+            if (menuButton.contains(engine.getMouseInput().getPoint())) {
+                settingsOpen = true;
+            }
+        }
+        else {
+            if (engine.getSoundControl().getClose().contains(engine.getMouseInput().getPoint())) {
+                settingsOpen = false;
+            }
+            else if (engine.getSoundControl().getSfxSlider().contains(engine.getMouseInput().getPoint())) {
+                pressedSfxSlider = true;
+            }
+            else if (engine.getSoundControl().getMusicSlider().contains(engine.getMouseInput().getPoint())) {
+                pressedMusicSlider = true;
+                System.out.println(MouseInfo.getPointerInfo().getLocation());
+            }
+        }
+        if (pressedSfxSlider) {
+            engine.getSoundControl().changeSfxSlider(MouseInfo.getPointerInfo().getLocation(), firstPress);
+            firstPress = true;
+        }
+        if (pressedMusicSlider) {
+            engine.getSoundControl().changeMusicSlider(MouseInfo.getPointerInfo().getLocation(), firstPress);
+            firstPress = true;
+        }
         if (engine.getPlayer().isInteracting()) {
             if (button1.contains(engine.getMouseInput().getPoint())) {
                 answer = "a";
@@ -60,6 +87,7 @@ public class Stage {
             else if (button5.contains(engine.getMouseInput().getPoint())) {
                 answer = "hint";
             }
+
         }
     }
 
@@ -70,6 +98,8 @@ public class Stage {
             background = ImageIO.read(new File(path));
         } catch (IOException e) {}
         g.drawImage(background, 0, 0, 1280, 640, null);
+        g.drawRect(menuButton.x, menuButton.y, menuButton.width, menuButton.height);
+
 
 
     }
@@ -117,5 +147,25 @@ public class Stage {
 
     public String getCurrentMap() {
         return currentMap;
+    }
+
+    public boolean isFirstPress() {
+        return firstPress;
+    }
+
+    public void setFirstPress(boolean firstPress) {
+        this.firstPress = firstPress;
+    }
+
+    public void setPressedMusicSlider(boolean pressedMusicSlider) {
+        this.pressedMusicSlider = pressedMusicSlider;
+    }
+
+    public void setPressedSfxSlider(boolean pressedSfxSlider) {
+        this.pressedSfxSlider = pressedSfxSlider;
+    }
+
+    public boolean isSettingsOpen() {
+        return settingsOpen;
     }
 }
