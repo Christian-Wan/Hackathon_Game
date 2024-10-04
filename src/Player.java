@@ -52,6 +52,7 @@ public class Player {
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     //SHOW TEXT ABOVE PLAYER HEAD THAT STATES THE PLAYER CAN PRESS E TO INTERACT
                     System.out.println("NPC HERE");
+
                 }
                 else {
                     if (engine.getStage().getInteractables().get(i).getInteractBox().getX() > 60) {
