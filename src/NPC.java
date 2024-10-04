@@ -6,4 +6,6 @@ public class NPC extends Interactable {
         this.name = name;
     }
 
+    private void createImages(){
+    }
 }

@@ -52,15 +52,23 @@ public class Player {
                 if (engine.getStage().getInteractables().get(i) instanceof NPC) {
                     //SHOW TEXT ABOVE PLAYER HEAD THAT STATES THE PLAYER CAN PRESS E TO INTERACT
                     System.out.println("NPC HERE");
+
                 }
                 else {
                     if (engine.getStage().getInteractables().get(i).getInteractBox().getX() > 60) {
-                        System.out.println("GO NEXT STAGE");
+                        String nextMap = "map" +  (Integer.parseInt(engine.getStage().getCurrentMap().substring(3)) + 1);
+                        engine.setStage(new Stage(engine, nextMap));
+                        xCord = 20;
+
                     }
                     else {
                         System.out.println("GO PREVIOUS");
+                        String nextMap = "map" +  (Integer.parseInt(engine.getStage().getCurrentMap().substring(3)) - 1);
+                        engine.setStage(new Stage(engine, nextMap));
+                        xCord = 1250;
                     }
-//                      engine.setStage(new Stage());
+
+                    hitBox.setLocation(xCord, yCord);
                }
             }
         }

@@ -5,6 +5,7 @@ public class Frame extends JFrame implements Runnable {
 
     private Engine engine;
     private Thread windowThread;
+    private int frame;
 
     public Frame() {
         engine = new Engine(this);
@@ -16,6 +17,7 @@ public class Frame extends JFrame implements Runnable {
         this.setLocation(320, 220);
         this.setVisible(true);
         this.setResizable(false);
+        frame = 0;
         startThread();
     }
 
@@ -31,6 +33,10 @@ public class Frame extends JFrame implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (true) {
+            frame++;
+            if (frame == 61) {
+                frame = 0;
+            }
             engine.getPlayPanel().update();
             engine.getPlayPanel().repaint();
             try {
@@ -48,5 +54,13 @@ public class Frame extends JFrame implements Runnable {
             }
 
         }
+    }
+
+    public int getFrame() {
+        return frame;
+    }
+
+    public void setFrame(int frame) {
+        this.frame = frame;
     }
 }
