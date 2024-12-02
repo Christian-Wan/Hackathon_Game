@@ -27,4 +27,4 @@ You will need a working OpenAPI Key.
 ## Demo
 
 Here’s a sneak peek of the gameplay in action! 
-Link to our [Hackathon presentation](https://docs.google.com/presentation/d/1TAS6zXIvuiCuxVLqjDMq7L64HEx7EBCSqw7GrfQsFyQ/edit#slide=id.g33d9a80511_1_20)
+Link to our [Hackathon presentation](https://docs.google.com/presentation/d/1TAS6zXIvuiCuxVLqjDMq7L64HEx7EBCSqw7GrfQsFyQ/edit#slide=id.g33d9a80511_1_20) and [Demo Video](https://youtu.be/_xb2x3qkbf0)
